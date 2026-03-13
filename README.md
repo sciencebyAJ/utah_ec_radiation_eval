@@ -1,62 +1,32 @@
+This repository evaluates net radiation at the UGS eddy covariance sites.
+Included is the ag-weatherqaqc package to compare SW in to theoretical maximum valus. More information on agweatherqaqc is in the paper here
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.06368/status.svg)](https://doi.org/10.21105/joss.06368)
 
-agweather-qaqc (Weather Data QAQC Script)
-==============================================
-``agweather-qaqc`` provides a flexible workflow for the visualization, review, and QAQC of daily weather data. This script is intended to be used as an early step in any analysis that might use daily sources of agricultural weather data, particularly for projects with an interest in reference evapotranspiration (ET) data, or where observational data are considered to be 'truth' when evaluating model predictions. ``agweather-qaqc`` is command-line interface driven, and provides reminders, prompts, and recommendations to assist users who may not be overly proficient with Python.
+The solar_check.ipynb notebook includes the analysis:
 
-Functionalities include:
-* Importing data without having to convert it to a standardized format, with unit conversions based on a user-specified configuration file.
-* Converting multiple input formats from separate sources or networks into a single, uniform format for easier downstream analysis.
-* Visualizing data before and after processing with interactive plots, as daily time series and as mean monthly averages.
-* Filtering and removal of data, both manually and automatically, with statistics-based approaches to identify and correct issues such as sensor miscalibration.
-* Calculation of [theoretical clear-sky solar radiation](https://wswup.github.io/agweather-qaqc/_static/asce_refet_appendices.pdf) and [Thornton-Running solar radiation](https://wswup.github.io/agweather-qaqc/_static/thornton_running_1997.pdf).
-* Calculation of grass and alfalfa reference ET according to the [American Society of Civil Engineers Standardized reference evapotranspiration equation](https://wswup.github.io/agweather-qaqc/_static/asce_refet_publication.pdf) via the [RefET](https://github.com/WSWUP/RefET) library.
-* Evaluating station aridity through the visualization of both relative humidity and dew point depression plots.
-* Optional gap-filling of data using station climatologies, empirical approaches (e.g. Thornton-Running solar), or random sampling.
+My main take-aways by site are:
 
-Documentation
--------------
+Dugout:
+* Smaller difference in net radiation overall.
+* Differences in net radiation values appear to be driven by longwave radiation measurements. 
+* Incoming LW radiation appears to drive the difference between the two sensors. 
+* SWin measurements from SW_1_1_2 appear to regularly exceed clear sky maximum, although this is not the primary driver of net radiation differences.
+* A next step could be to calculate LW incoming values to check which sensor is more representative.
 
-[Github Page](https://wswup.github.io/agweather-qaqc/)
 
-Installation
-------------
+Escalante:
+* Larger difference in net radiation.
+* Net radiation difference is driven by LW incoming radiation, especially during winter.
+* During summer the net radiation difference is due to differences are driven by both SW and LW components
+* A next step could be to calculate LW incoming values to check which sensor is more representative.
 
-1. Clone the repository:
+Bluff:
+* Net radiation difference is driven by SW radiation.
+* Shortwave incoming radiation sensor SW_IN_1_1_1 measures higher values than SW_IN_1_1_2. 
+* Comparing SW_IN_1_1_1 to theoretical clear sky SW incoming values indicates the sensor measures values slightly higher than theory
+* Comparing SW_IN_1_1_2 to theoretical clear sky SW incoming values indicates the sensor measures values slightly lower than theory, especially during June -September 2024 and April to July 2025. 
+* An action could be to check field notes to see if the pyranometer was dusty or cloudy. Additionally, you can check to see if this sensor is outside of its calibration lifetime and needs to be re-calibrated.
+* The difference in net radiation is primarily driven by SW out.
+* SW_OUT_1_1_2 measures greater outgoing shortwave radiation than SW_OUT_1_1_1
+* An action could be to check field notes to check the field of view for each sensor. If the sensors are capturing the same general land cover & shadows then the sensors should be inspected further. You may want to look into adjusting the location of one of the sensors given the difference in out-going SW, likely due to difference in albedo.
 
-    ```
-    git clone https://github.com/WSWUP/agweather-qaqc
-    ```
-2. Navigate the command line/terminal into the repository root directory:
-    ```
-    cd path/to/agweather-qaqc
-    ```
-3. Setting up and activating the environment can be done one of three ways:
-   * Conda Environment:
-     ```
-     conda env create -f environment.yml
-     ```
-     ```
-     conda activate agweatherqaqc
-     ```
-   * Pipenv Environment:
-     ```
-     pipenv install -r requirements.txt
-     ```
-     ```
-     pipenv shell
-     ```
-   * PDM Environment:
-     ```
-     pdm install
-     ```
-     ```
-     pdm shell
-     ```
-
-4. Run the script via the file ``qaqc_single_station.py``
-    ```
-    python qaqc_single_station.py <OPTIONAL ARGUMENTS>
-    ```
-
-See the [documentation](https://wswup.github.io/agweather-qaqc/) for more information.
