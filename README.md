@@ -2,7 +2,7 @@ This repository evaluates net radiation at the UGS eddy covariance sites.
 Included is the ag-weatherqaqc package to compare SW in to theoretical maximum valus. More information on agweatherqaqc is in the paper here
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.06368/status.svg)](https://doi.org/10.21105/joss.06368)
 
-The solar_check.ipynb notebook includes the analysis:
+The solar_check.ipynb notebook includes the analysis: 
 
 My main take-aways by site are:
 
